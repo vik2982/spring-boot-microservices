@@ -1,0 +1,39 @@
+version: "2.4"
+services:
+  mock-server:
+    image: mockserver/mockserver
+    ports:
+      - 1080:1080
+    environment:
+      MOCKSERVER_LOG_LEVEL: DEBUG
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/expectationInitialiser.json
+    volumes:
+      - ./mock-server/config:/config
+    networks:
+      - spring-boot-network
+  config-server-service:
+    image: spring-cloud-config-server:1.0
+    ports:
+      - 8888:8888
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/books-api/dev" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - spring-boot-network
+  books-api-service:
+    image: books-api:1.0
+    ports:
+      - 8080:8080
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
+    depends_on:
+      config-server-service:
+        condition: service_healthy
+    networks:
+      - spring-boot-network
+
+networks:
+  spring-boot-network:
+    driver: bridge

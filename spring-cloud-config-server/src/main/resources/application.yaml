@@ -1,0 +1,20 @@
+server:
+  port: 8888
+
+spring:
+  profiles:
+    active: jdbc
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT PROPERTIES.PROP_KEY, PROPERTIES.PROP_VAL from PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+          order: 1
+          default-label: 1.1

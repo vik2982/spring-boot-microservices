@@ -1,0 +1,11 @@
+version: "2.4"
+services:
+  mockserver:
+    image: mockserver/mockserver
+    ports:
+      - 1080:1080
+    environment:
+      MOCKSERVER_LOG_LEVEL: DEBUG
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/expectationInitialiser.json
+    volumes:
+      - ./config:/config

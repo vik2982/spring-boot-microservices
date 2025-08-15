@@ -1,0 +1,28 @@
+spring:
+  config:
+    import: "configserver:http://localhost:8888/"
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    
+logging:
+  level:
+    root: DEBUG
+    com.va.books: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+    env:
+      show-values: ALWAYS
+    configprops:
+      show-values: ALWAYS

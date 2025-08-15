@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: books-api
+
+#server:
+  #servlet:
+    #context-path: /books-api
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    com.va.books: ERROR
+    org.hibernate: ERROR

@@ -1,0 +1,64 @@
+[
+  {
+    "httpRequest" : {
+      "method" : "GET",
+      "path" : "/books-mock-api",
+      "queryStringParameters": [
+        {
+          "name": "error",
+          "values": ["true"]
+        }
+      ]
+    },
+    "httpResponse" : {
+      "statusCode": 500,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "message": "Mock server returning error to invoke resilience retry logic"
+      }
+    }
+  },
+
+  {
+    "httpRequest" : {
+      "method" : "GET",
+      "path" : "/books-mock-api"
+    },
+    "httpResponse" : {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "id": 4,
+        "title": "New Book",
+        "author": "Vikrant Ardhawa",
+        "yearPublished": 2025,
+        "pages": 400,
+        "price": 39.99
+      }
+    }
+  },
+
+
+
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/football-api",
+      "body": {
+        "type": "JSON",
+        "json": "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": "{ \"status\": \"success\" }"
+    }
+  }
+
+
+
+]
