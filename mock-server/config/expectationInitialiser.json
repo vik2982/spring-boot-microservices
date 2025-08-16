@@ -1,14 +1,33 @@
 [
+
   {
     "httpRequest" : {
       "method" : "GET",
       "path" : "/books-mock-api",
-      "queryStringParameters": [
-        {
-          "name": "error",
-          "values": ["true"]
-        }
-      ]
+      "queryStringParameters": {
+        "error": "true",
+        "badRequest": "true"
+      }
+    },
+    "httpResponse" : {
+      "statusCode": 400,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "message": "Mock server returning error to invoke resilience retry predicate logic"
+      }
+    }
+  },
+
+
+  {
+    "httpRequest" : {
+      "method" : "GET",
+      "path" : "/books-mock-api",
+      "queryStringParameters": {
+        "error": "true"
+      }
     },
     "httpResponse" : {
       "statusCode": 500,
@@ -42,12 +61,10 @@
     }
   },
 
-
-
   {
     "httpRequest": {
       "method": "POST",
-      "path": "/football-api",
+      "path": "/books-mock-api",
       "body": {
         "type": "JSON",
         "json": "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
@@ -58,7 +75,5 @@
       "body": "{ \"status\": \"success\" }"
     }
   }
-
-
 
 ]

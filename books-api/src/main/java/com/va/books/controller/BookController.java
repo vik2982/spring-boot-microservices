@@ -32,20 +32,9 @@ public class BookController {
   ResilientRestClient restClient;
 
   @GetMapping("/{id}")
-  public ResponseEntity<Book> getBook(@PathVariable("id") Long id, @RequestParam(name = "mock-api", defaultValue = "false") boolean mockApi, @RequestParam(name = "error", defaultValue = "false") boolean error) {
+  public ResponseEntity<Book> getBook(@PathVariable("id") Long id){
 
-    Optional<Book> book;
-
-    /*if (mockApi){
-      book = Optional.ofNullable(restClient.getBooksFromMockServer().getBody());
-    }else {
-      book = bookRepository.findById(id);
-    }*/
-
-    //If mock-api request param is false get book from db. Else get book from mock api.  error request param determines whether mock api returns error response
-    book = !mockApi ? bookRepository.findById(id) : error ? Optional.ofNullable(restClient.retryGetBooksFromMockServer().getBody()) : Optional.ofNullable(restClient.getBooksFromMockServer().getBody());
-
-    //book = bookRepository.findById(id);
+    Optional<Book> book = bookRepository.findById(id);
     if (book.isPresent())
       return new ResponseEntity<Book>(book.get(), HttpStatus.OK);
 
@@ -103,5 +92,18 @@ public class BookController {
     return new ResponseEntity<List<Book>>(bookRepository.findAll(), HttpStatus.CREATED);
   }
 
+  @GetMapping("/mock-api/{id}")
+  public ResponseEntity<Book> getBooks(@PathVariable("id") Long id, @RequestParam(name = "error", defaultValue = "false") boolean error
+          , @RequestParam(name = "retry", defaultValue = "false") boolean retry, @RequestParam(name = "badRequest", defaultValue = "false") boolean badRequest) throws BookException {
+
+    //If error request param is false mock api returns book. Else mock api returns error.  If retry request param is true mock api call is retried
+    Optional<Book> book = !error ? Optional.ofNullable(restClient.getBooksFromMockServer(false).getBody()) : retry ? Optional.ofNullable(restClient.getBooksFromMockServerWithRetry(true,badRequest).getBody()) : Optional.ofNullable(restClient.getBooksFromMockServer(true).getBody());
+
+    if (book.isPresent())
+      return new ResponseEntity<Book>(book.get(), HttpStatus.OK);
+
+    return new ResponseEntity<Book>(HttpStatus.OK);
+
+  }
 
 }
