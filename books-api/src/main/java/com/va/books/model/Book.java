@@ -1,12 +1,13 @@
 package com.va.books.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 
 @Entity
@@ -29,6 +30,14 @@ public class Book {
 
   private double price;
 
+  @CreationTimestamp
+  @Column(updatable = false, name = "created_at")
+  private Date createdAt;
+
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private Date updatedAt;
+
   public Book(String title, String author, int yearPublished, int pages, double price) {
     this.title = title;
     this.author = author;
@@ -36,6 +45,8 @@ public class Book {
     this.pages = pages;
     this.price = price;
   }
+
+
 
   //hashcode and equals used by rest create method to check if book already exists
   public boolean equals(Object bookObj) {

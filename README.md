@@ -100,10 +100,30 @@ http://localhost:8888/books-api/local <br/>
 http://localhost:8888/books-api/dev
 
 #### books-api
-* Console url: http://localhost:8080/books/h2-console/  
+* Console url: http://localhost:8080/h2-console/  
 * Database url: jdbc:h2:mem:testdb
 * username: sa
 * password is empty
 
 ### Actuator
 http://localhost:8080/actuator/env
+
+### Spring Security
+
+By default spring security is disabled. To enable:
+1. Login to spring cloud config server h2 console - http://localhost:8888/h2-console/
+2. UPDATE PROPERTIES SET PROP_VAL = 'true' WHERE PROP_KEY = 'security.enabled'
+3. Navigate to http://localhost:8888/books-api/local - confirm property updated
+4. curl -X POST http://localhost:8080/actuator/refresh
+
+Now all of the /books resources are secure - you will get 403 error. To access:
+```
+curl -X POST -H "Content-Type: application/json" -d '{
+  "username" : "user1",
+  "password" : "password1"
+}' 'http://localhost:8080/login'
+```
+
+This will generate a jwt token.  You can use this token to call the /books resources - Set Authorization Bearer Token
+
+**NOTE**: On application startup 3 users are saved to the Users table including user1/password1
