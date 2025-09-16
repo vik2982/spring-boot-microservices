@@ -23,18 +23,14 @@ public class ResilientRestClient {
 
     private static final Logger logger = LogManager.getLogger(ResilientRestClient.class);
 
-    @Value("${host}")
+    @Value("${mock.server.host}")
     private String host;
 
-    @Value("${port}")
+    @Value("${mock.server.port}")
     private String port;
 
-    @Value("${mock-path}")
+    @Value("${mock.server.path}")
     private String path;
-
-    /*private static String HOST;
-    private static String PORT;
-    private static String PATH;*/
 
     @Autowired
     RestTemplate restTemplate;
@@ -98,33 +94,5 @@ public class ResilientRestClient {
 
         return uriBuilder.toUriString();
     }
-
-
-
-    /*@Value("${host}")
-    public void setHost(String host) {
-        HOST = host;
-    }
-
-    @Value("${port}")
-    public void setPort(String port) {
-        PORT = port;
-    }
-
-    @Value("${mock-path}")
-    public void setPath(String path) {
-        PATH = path;
-    }
-
-    private static String getUri(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("http://");
-        sb.append(HOST);
-        sb.append(":");
-        sb.append(PORT);
-        sb.append(PATH);
-
-        return sb.toString();
-    }*/
 
 }

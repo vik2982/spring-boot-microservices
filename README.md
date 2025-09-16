@@ -63,9 +63,9 @@ docker-compose up -d
 # docker-compose down - stop and remove containers
 ```
 
-### URLS
+## How to Test
 
-#### Test database logic
+### Test database logic
 * Get book by id - http://localhost:8080/books/{id}
 * Filter books by title - http://localhost:8080/books/filter?title=LOTR
 * Sort books by price: http://localhost:8080/books/sort?sort_by=price&order_by=DESC
@@ -80,11 +80,11 @@ curl -X POST -H "Content-Type: application/json" -d '{
 }' 'http://localhost:8080/books'
 ```
 
-#### Test mock server logic
+### Test mock server logic
 * Get book by id from mock server - http://localhost:8080/books/mock-api/4
 * Get 500 error from mock server (no retry) - http://localhost:8080/books/mock-api/4?error=true
 * Get 500 error from mock server (retry logic) - http://localhost:8080/books/mock-api/4?error=true&retry=true
-* Get 400 error from mock server (retry predicate logic) -   http://localhost:8080/books/mock-api/4?error=true&retry=true&badRequest=true
+* Get 400 error from mock server (retry predicate logic - no retry for 4xx errors) -   http://localhost:8080/books/mock-api/4?error=true&retry=true&badRequest=true
 
 ### H2
 
@@ -108,9 +108,9 @@ http://localhost:8888/books-api/dev
 ### Actuator
 http://localhost:8080/actuator/env
 
-### Spring Security
+## Spring Security
 
-By default spring security is disabled. To enable:
+By default spring security is disabled in the books-api microservice. To enable:
 1. Login to spring cloud config server h2 console - http://localhost:8888/h2-console/
 2. UPDATE PROPERTIES SET PROP_VAL = 'true' WHERE PROP_KEY = 'security.enabled'
 3. Navigate to http://localhost:8888/books-api/local - confirm property updated
