@@ -1,4 +1,4 @@
-# Design Patterns implemented with Spring Boot Microservices
+# Microservice Design Patterns implemented with Spring Boot 
 
 This project demonstrates the following microservice patterns:
 * **External config** - Using spring cloud config
@@ -21,6 +21,7 @@ The following design patterns are also present in the project:
 ### Standalone
 **Start the mock server**  *- the mock server allows us to demonstrate rest client side logic within our books-api microservice.  In addition the mock server returns a error response so that we can test resilience4j retry logic*:
 ```
+cd mock-server
 docker-compose up -d
 ```
 **Start the config server**  *- the client microservice (books-api) config is stored in a h2 database.  The config consists of the connection properties for the mock api and the resilience4j config*:

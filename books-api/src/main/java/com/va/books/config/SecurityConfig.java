@@ -42,7 +42,7 @@ public class SecurityConfig {
         }
 
         return http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // Disables CSRF protection - we are using JWT in request auth header hence csrf not a concern
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // fix for h2 console
                 .authorizeHttpRequests(authorize -> authorize
                         //.requestMatchers(HttpMethod.GET,"/books/**").permitAll()
