@@ -1,4 +1,4 @@
-# Design Patterns implemented with Spring Boot Microservices
+# Microservice Design Patterns implemented with Spring Boot 
 
 This project demonstrates the following microservice patterns:
 * **External config** - Using spring cloud config

@@ -1,6 +1,6 @@
 package com.va.books.service;
 
-import com.va.books.model.UserPrincipal;
+import com.va.books.model.UserDetailsImpl;
 import com.va.books.model.User;
 import com.va.books.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepo;
@@ -24,6 +24,6 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("user not found");
         }
 
-        return new UserPrincipal(user);
+        return new UserDetailsImpl(user);
     }
 }
