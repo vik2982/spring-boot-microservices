@@ -12,7 +12,7 @@ The following design patterns are also present in the project:
 
 ## Prerequisites
 
-* JDK 24
+* JDK 25
 * Maven Latest version
 * Latest Docker installation
 
